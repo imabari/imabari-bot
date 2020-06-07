@@ -15,8 +15,15 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
     - name: Run script
       run: |
-        python env_test.py
+        python hyougo-twit.py
       env:
-        ENV_KEY: imabari
+        CONSUMER_KEY: ${{ NEWS_CONSUMER_KEY }}
+        CONSUMER_SECRET: ${{ NEWS_CONSUMER_SECRET }}
+        ACCESS_TOKEN: ${{ NEWS_ACCESS_TOKEN }}
+        ACCESS_TOKEN SECRET: ${{ NEWS_ACCESS_TOKEN SECRET }}:  
