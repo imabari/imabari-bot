@@ -7,7 +7,7 @@ import tweepy
 CK = os.environ["CONSUMER_KEY"]
 CS = os.environ["CONSUMER_SECRET"]
 AT = os.environ["ACCESS_TOKEN"]
-AS = os.environ["ACCESS_TOKEN SECRET"]
+AS = os.environ["ACCESS_TOKEN_SECRET"]
 
 r = requests.get("https://raw.githubusercontent.com/stop-covid19-hyogo/covid19-scraping/gh-pages/main_summary.json")
 data = r.json()
