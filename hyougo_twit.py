@@ -22,4 +22,5 @@ auth.set_access_token(AT, AS)
 
 twit = f"【データ更新】兵庫県が{last_update}に公表した、最新感染動向データを、兵庫県 新型コロナウイルスまとめサイトに反映しました。\n\n現在の入院者数は{inpatient}人です。\n\nhttps://stop-covid19-hyogo.org\n#StopCovid19Hyogo #StopCovid19JP #兵庫コロナ情報"
 
+api = tweepy.API(auth)
 api.update_status(twit)
