@@ -23,7 +23,7 @@ jobs:
       run: |
         python hyougo-twit.py
       env:
-        CONSUMER_KEY: ${{ NEWS_CONSUMER_KEY }}
-        CONSUMER_SECRET: ${{ NEWS_CONSUMER_SECRET }}
-        ACCESS_TOKEN: ${{ NEWS_ACCESS_TOKEN }}
-        ACCESS_TOKEN SECRET: ${{ NEWS_ACCESS_TOKEN SECRET }}
+        CONSUMER_KEY: ${{ secrets.NEWS_CONSUMER_KEY }}
+        CONSUMER_SECRET: ${{ secrets.NEWS_CONSUMER_SECRET }}
+        ACCESS_TOKEN: ${{ secrets.NEWS_ACCESS_TOKEN }}
+        ACCESS_TOKEN SECRET: ${{ secrets.NEWS_ACCESS_TOKEN SECRET }}
