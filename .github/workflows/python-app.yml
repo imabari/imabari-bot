@@ -26,4 +26,4 @@ jobs:
         CONSUMER_KEY: ${{ secrets.NEWS_CONSUMER_KEY }}
         CONSUMER_SECRET: ${{ secrets.NEWS_CONSUMER_SECRET }}
         ACCESS_TOKEN: ${{ secrets.NEWS_ACCESS_TOKEN }}
-        ACCESS_TOKEN SECRET: ${{ secrets.NEWS_ACCESS_TOKEN SECRET }}
+        ACCESS_TOKEN SECRET: ${{ secrets.NEWS_ACCESS_TOKEN_SECRET }}
