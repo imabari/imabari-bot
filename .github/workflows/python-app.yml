@@ -18,3 +18,5 @@ jobs:
     - name: Run script
       run: |
         python env_test.py
+      env:
+        ENV_KEY: imabari
