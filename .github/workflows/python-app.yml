@@ -21,7 +21,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run script
       run: |
-        python hyougo_twit.py
+        python er_imabari.py
       env:
         CONSUMER_KEY: ${{ secrets.NEWS_CONSUMER_KEY }}
         CONSUMER_SECRET: ${{ secrets.NEWS_CONSUMER_SECRET }}
