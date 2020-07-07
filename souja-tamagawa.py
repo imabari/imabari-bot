@@ -229,48 +229,52 @@ def get_dam():
 
 if __name__ == "__main__":
 
-    river_str, river_flg = get_river()
-
-    time.sleep(3)
-
     dam_str, dam_flg = get_dam()
 
-    twit = "\n\n".join(
-        [
-            river_str,
-            dam_str,
-            "http://i.river.go.jp/_-p01-_/p/xmn0501010/?mtm=10&swd=&prf=3801&twn=3801202",
-        ]
-    )
+    print(dam_str)
 
-    print(twit)
+    if dam_flg:
 
-    if river_flg or dam_flg:
+        time.sleep(3)
 
-        # 画像
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko",
-            "Cache-Control": "no-cache",
-            "Pragma": "no-cache",
-        }
+        river_str, river_flg = get_river()
 
-        url_image = "http://www.pref.ehime.jp/kasen/Jpeg/Cam006/00_big.jpg"
-        r = requests.get(url_image, headers=headers)
+        print(river_str)
 
-        with open("souja.jpg", "wb") as fw:
-            fw.write(r.content)
+        twit = "\n\n".join(
+            [
+                river_str,
+                dam_str,
+                "http://i.river.go.jp/_-p01-_/p/xmn0501010/?mtm=10&swd=&prf=3801&twn=3801202",
+            ]
+        )
 
-        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-        auth.set_access_token(access_token, access_token_secret)
-        api = tweepy.API(auth)
+        if river_flg or (dt_now.minute == 0):
 
-        # 複数メディア投稿
-        filenames = ["souja.jpg", "katayama.png", "kouya.png", "tamagawa.png"]
-        media_ids = []
+            # 画像
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko",
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache",
+            }
 
-        for filename in filenames:
-            res = api.media_upload(filename)
-            media_ids.append(res.media_id)
+            url_image = "http://www.pref.ehime.jp/kasen/Jpeg/Cam006/00_big.jpg"
+            r = requests.get(url_image, headers=headers)
 
-        # tweet with multiple images
-        api.update_status(status=twit, media_ids=media_ids)
+            with open("souja.jpg", "wb") as fw:
+                fw.write(r.content)
+
+            auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+            auth.set_access_token(access_token, access_token_secret)
+            api = tweepy.API(auth)
+
+            # 複数メディア投稿
+            filenames = ["souja.jpg", "katayama.png", "kouya.png", "tamagawa.png"]
+            media_ids = []
+
+            for filename in filenames:
+                res = api.media_upload(filename)
+                media_ids.append(res.media_id)
+
+            # tweet with multiple images
+            api.update_status(status=twit, media_ids=media_ids)
