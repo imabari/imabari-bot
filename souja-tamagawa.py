@@ -220,7 +220,7 @@ def get_dam():
 
     flg = False
 
-    if df.iloc[-1]["全放流量"] > 20:
+    if df.iloc[-1]["全放流量"] > 5:
 
         flg = True
 
