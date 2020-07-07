@@ -3,6 +3,8 @@ name: Python application
 on:
   repository_dispatch:
     types: [on-demand-test]
+  schedule:
+    - cron:  '8,18,28,38,48,58 * * * *'
 
 jobs:
   build:
@@ -21,7 +23,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run script
       run: |
-        python er_imabari.py
+        python souja-tamagawa.py
       env:
         CONSUMER_KEY: ${{ secrets.NEWS_CONSUMER_KEY }}
         CONSUMER_SECRET: ${{ secrets.NEWS_CONSUMER_SECRET }}
