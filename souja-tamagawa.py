@@ -108,7 +108,7 @@ def get_river():
     ax1.axhline(y=2.1, linestyle="--", color="b", linewidth=1, label="")
     plt.savefig("katayama.png", dpi=200)
 
-    plt.show()
+    # plt.show()
     plt.close()
 
     # 高野
@@ -125,7 +125,7 @@ def get_river():
     ax2.axhline(y=3.5, linestyle="--", color="b", linewidth=1, label="")
     plt.savefig("kouya.png", dpi=200)
 
-    plt.show()
+    # plt.show()
     plt.close()
 
     # 中通
@@ -182,7 +182,7 @@ def get_dam():
     ax.axhline(y=158, linestyle="--", color="red", linewidth=1, label="")
     ax.axhline(y=155.8, linestyle="--", color="blue", linewidth=1, label="")
     plt.savefig("tamagawa.png", dpi=200)
-    plt.show()
+    # plt.show()
     plt.close()
 
     df_diff = df.diff().fillna(0)
@@ -220,7 +220,7 @@ def get_dam():
 
     flg = False
 
-    if df.iloc[-1]["全放流量"] > 5:
+    if df.iloc[-1]["全放流量"] > 20:
 
         flg = True
 
