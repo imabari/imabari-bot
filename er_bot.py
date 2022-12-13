@@ -11,6 +11,6 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
-for status in api.user_timeline("imabari119_bot", count=3)[::-1]:
+for status in api.user_timeline(screen_name="imabari119_bot")[:3:-1]:
     if not status.retweeted:
         api.retweet(status.id)
