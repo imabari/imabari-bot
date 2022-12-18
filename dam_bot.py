@@ -82,7 +82,7 @@ def fetch_dam(dam, dt_now):
         tw["rate"] = se["貯水率"]
         tw["time"] = se.name.strftime("%H:%M")
 
-        twit = f'ただいまの{dam["name"]}の貯水率は{tw["rate"]}%です（{tw["time"]}）\n#今治 #{dam["name"]} #貯水率'
+        twit = f'ただいまの{dam["name"]}の貯水率は{tw["rate"]}%です（{tw["time"]}）\n#今治 #{dam["name"]} #貯水率\n\nhttps://www.city.imabari.ehime.jp/suidou/suigen/dam.html'
 
         print(twit)
         api.update_status(twit)
