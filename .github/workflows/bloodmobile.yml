@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f bloodmobile.txt ]; then pip install -r dam_req.txt; fi
+        if [ -f bloodmobile.txt ]; then pip install -r bloodmobile.txt; fi
     - name: Run script
       run: |
         python bloodmobile.py
