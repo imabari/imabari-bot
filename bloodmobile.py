@@ -78,6 +78,6 @@ for _, row in df1.iterrows():
     if row["記念品"]:
         twit += f"\n\n※ご協力団体様から記念品進呈"
 
-    twit += f'\n\n#献血 #愛媛県 #{row["市区町村"]} '
+    twit += f'\n\n{url}\n\n#献血 #愛媛県 #{row["市区町村"]} '
 
     api.update_status(twit)
