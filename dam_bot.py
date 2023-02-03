@@ -97,7 +97,7 @@ if len(df) > 0:
     tw["rate"] = se["貯水率"]
     tw["time"] = se.name.strftime("%H:%M")
 
-    twit = f'ただいまの玉川ダムの貯水率は{tw["rate"]}%です（{tw["time"]}）\n#今治 #玉川ダム #貯水率\n\nhttps://www.city.imabari.ehime.jp/suidou/suigen/dam.html'
+    twit = f'ただいまの玉川ダムの貯水率は{tw["rate"]}%です（{tw["time"]}）\n#今治 #玉川ダム #貯水率'
 
     print(twit)
 
