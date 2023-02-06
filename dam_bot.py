@@ -14,7 +14,7 @@ dt_now = pd.Timestamp.now(tz="Asia/Tokyo").tz_localize(None)
 dt_now
 
 df = (
-    pd.read_html(url, na_values=["-", "閉局"])[1]
+    pd.read_html(url, na_values=["-", "閉局", "欠測"])[1]
     .rename(
         columns={
             0: "日時",
