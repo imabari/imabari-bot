@@ -44,7 +44,7 @@ df0.set_index("", inplace=True)
 df0
 
 # 現在
-dt_now = pd.Timestamp.now(tz="Asia/Tokyo").tz_localize(None) + pd.Timedelta(days=2)
+dt_now = pd.Timestamp.now(tz="Asia/Tokyo").tz_localize(None) + pd.Timedelta(days=1)
 
 dt_now
 
