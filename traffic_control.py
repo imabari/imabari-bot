@@ -1,44 +1,84 @@
-import datetime
 import os
 import pathlib
 
+import pandas as pd
 import pdfbox
+import pdfplumber
 import requests
 import tweepy
 
-def get_file(url):
+
+def fetch_file(url, dir="."):
+
+    p = pathlib.Path(dir, pathlib.PurePath(url).name)
+    p.parent.mkdir(parents=True, exist_ok=True)
 
     r = requests.get(url)
-
-    p = pathlib.Path(pathlib.PurePath(url).name)
+    r.raise_for_status()
 
     with p.open(mode="wb") as fw:
         fw.write(r.content)
-
     return p
+
 
 url = "https://www.police.pref.ehime.jp/kotsusidou/map/5.pdf"
 
-pdf_file = get_file(url)
+p = fetch_file(url)
 
-p = pdfbox.PDFBox()
+pdfbox.PDFBox().pdf_to_images(p, imageType="png", dpi=200)
 
-p.pdf_to_images(pdf_file, imageType="png", dpi=200)
+pdf = pdfplumber.open(p)
+page = pdf.pages[0]
 
-consumer_key = os.environ["IMABARI_CK"]
-consumer_secret = os.environ["IMABARI_CS"]
-access_token = os.environ["IMABARI_AT"]
-access_token_secret = os.environ["IMABARI_AS"]
+crop = page.within_bbox((0, 545, page.width, 730))
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+table = crop.extract_table()
 
-api = tweepy.API(auth)
+df0 = pd.DataFrame(table[1:], columns=table[0])
 
-JST = datetime.timezone(datetime.timedelta(hours=+9), "JST")
-dt_now = datetime.datetime.now(JST)
+# 列名
+df0.columns = df0.columns.str.replace("\s", "", regex=True)
 
-twit = f"{dt_now.year}年{dt_now.month}月中の公開交通取締り（今治署） #imabari\n{url}"
+df0.set_index("", inplace=True)
 
-media_id = api.media_upload("51.png").media_id
-api.update_status(status=twit, media_ids=[media_id])
+df0
+
+# 現在
+dt_now = pd.Timestamp.now(tz="Asia/Tokyo").tz_localize(None) + pd.Timedelta(days=2)
+
+dt_now
+
+df0["日"] = df0["日"].str.rstrip("日").astype(int)
+df0["曜日"] = df0["曜日"].str.strip().str.normalize("NFKC")
+df0["時間"] = df0["時間"].str.strip().str.normalize("NFKC")
+
+df0["date"] = df0["日"].apply(lambda x: dt_now.replace(day=x)).dt.date
+
+df0[["start", "end"]] = df0["時間"].str.split("-", expand=True)
+
+df0["start"] = pd.to_datetime(df0["date"]) + pd.to_timedelta(df0["start"] + ":00")
+df0["end"] = pd.to_datetime(df0["date"]) + pd.to_timedelta(df0["end"] + ":00")
+
+df0
+
+df1 = df0[df0["日"] == dt_now.day]
+
+if len(df1) > 0:
+
+    twit = f"{dt_now.month}月中の公開交通取締り（今治署） #imabari\n{url}\n"
+
+    for _, row in df1.iterrows():
+        twit += f'\n【{row["種別"]}】\n日付：{row["date"]}（{row["曜日"]}）\n時間：{row["時間"]}\n場所：{row["取締場所"]}（{row["路線名"]}）'
+
+    consumer_key = os.environ["CONSUMER_KEY"]
+    consumer_secret = os.environ["CONSUMER_SECRET"]
+    access_token = os.environ["ACCESS_TOKEN"]
+    access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
+
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+
+    api = tweepy.API(auth)
+
+    media_id = api.media_upload("51.png").media_id
+    api.update_status(status=twit, media_ids=[media_id])
