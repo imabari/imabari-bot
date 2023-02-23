@@ -70,10 +70,10 @@ if len(df1) > 0:
     for _, row in df1.iterrows():
         twit += f'\n【{row["種別"]}】\n日付：{row["date"]}（{row["曜日"]}）\n時間：{row["時間"]}\n場所：{row["取締場所"]}（{row["路線名"]}）'
 
-    consumer_key = os.environ["CONSUMER_KEY"]
-    consumer_secret = os.environ["CONSUMER_SECRET"]
-    access_token = os.environ["ACCESS_TOKEN"]
-    access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
+    consumer_key = os.environ["IMABARI_CK"]
+    consumer_secret = os.environ["IMABARI_CS"]
+    access_token = os.environ["IMABARI_AT"]
+    access_token_secret = os.environ["IMABARI_AS"]
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
