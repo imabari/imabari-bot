@@ -44,8 +44,7 @@ df0.set_index("", inplace=True)
 df0
 
 # 現在
-dt_now = pd.Timestamp.now(tz="Asia/Tokyo").tz_localize(None) + pd.Timedelta(days=1)
-
+dt_now = pd.Timestamp.now(tz="Asia/Tokyo").tz_localize(None)
 dt_now
 
 df0["日"] = df0["日"].str.rstrip("日").astype(int)
@@ -61,7 +60,7 @@ df0["end"] = pd.to_datetime(df0["date"]) + pd.to_timedelta(df0["end"] + ":00")
 
 df0
 
-df1 = df0[df0["日"] == dt_now.day]
+df1 = df0[(df0["日"] > dt_now.day) & (df0["日"] < dt_now.day + 6)]
 
 if len(df1) > 0:
 
