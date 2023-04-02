@@ -30,7 +30,7 @@ pdfbox.PDFBox().pdf_to_images(p, imageType="png", dpi=200)
 pdf = pdfplumber.open(p)
 page = pdf.pages[0]
 
-crop = page.within_bbox((0, 545, page.width, 730))
+crop = page.within_bbox((0, 920, page.width, 1220))
 
 table = crop.extract_table()
 
