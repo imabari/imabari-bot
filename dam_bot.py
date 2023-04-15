@@ -53,10 +53,10 @@ df["日時"] = pd.to_datetime(df_date[["year", "month", "day", "hour", "minute"]
 # 貯水率
 
 fig_wsr = px.line(
-    df, x="日時", y="貯水率", range_y=[40, 70], width=800, height=800, title="玉川ダムの貯水率"
+    df, x="日時", y="貯水率", range_y=[50, 80], width=800, height=800, title="玉川ダムの貯水率"
 )
 fig_wsr.add_hline(y=60, line_color="orange", line_dash="dash")
-fig_wsr.add_hline(y=50, line_color="red", line_dash="dash")
+# fig_wsr.add_hline(y=50, line_color="red", line_dash="dash")
 # fig_wsr.show()
 
 fig_wsr.write_image("dam.png")
