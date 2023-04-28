@@ -33,3 +33,4 @@ jobs:
         IMABARI_CS: ${{ secrets.IMABARI_CS }}
         IMABARI_AT: ${{ secrets.IMABARI_AT }}
         IMABARI_AS: ${{ secrets.IMABARI_AS }}
+        IMABARI_BT: ${{ secrets.IMABARI_BT }}
