@@ -50,12 +50,28 @@ df_date["year"].mask(dt_now < df_date["datetime"], df_date["year"] - 1, inplace=
 
 df["日時"] = pd.to_datetime(df_date[["year", "month", "day", "hour", "minute"]])
 
-bearer_token = os.environ["IMABARI_BT"]
-consumer_key = os.environ["IMABARI_CK"]
-consumer_secret = os.environ["IMABARI_CS"]
-access_token = os.environ["IMABARI_AT"]
-access_token_secret = os.environ["IMABARI_AS"]
+# 貯水率が欠損の行を削除
+df.dropna(subset=["貯水率"], inplace=True)
 
-client = tweepy.Client(bearer_token, consumer_key, consumer_secret, access_token, access_token_secret)
+df.set_index("日時", inplace=True)
 
-client.create_tweet(text=twit)
+if len(df) > 0:
+
+    se = df.iloc[-1]
+    tw = {}
+    tw["rate"] = se["貯水率"]
+    tw["time"] = se.name.strftime("%H:%M")
+
+    twit = f'ただいまの玉川ダムの貯水率は{tw["rate"]}%です（{tw["time"]}）\n#今治 #玉川ダム #貯水率'
+
+    print(twit)
+    
+    bearer_token = os.environ["IMABARI_BT"]
+    consumer_key = os.environ["IMABARI_CK"]
+    consumer_secret = os.environ["IMABARI_CS"]
+    access_token = os.environ["IMABARI_AT"]
+    access_token_secret = os.environ["IMABARI_AS"]
+
+    client = tweepy.Client(bearer_token, consumer_key, consumer_secret, access_token, access_token_secret)
+
+    client.create_tweet(text=twit)
