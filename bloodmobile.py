@@ -59,14 +59,13 @@ df0["week"] = df0["date"].dt.isocalendar().week
 
 df1 = df0[df0["week"] == week_num].copy()
 
+bearer_token = os.environ["IMABARI_BT"]
 consumer_key = os.environ["IMABARI_CK"]
 consumer_secret = os.environ["IMABARI_CS"]
 access_token = os.environ["IMABARI_AT"]
 access_token_secret = os.environ["IMABARI_AS"]
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
+client = tweepy.Client(bearer_token, consumer_key, consumer_secret, access_token, access_token_secret)
 
 for _, row in df1.iterrows():
 
@@ -80,4 +79,4 @@ for _, row in df1.iterrows():
 
     twit += f'\n\n{url}\n\n#献血 #愛媛県 #{row["市区町村"]} '
 
-    api.update_status(twit)
+    client.create_tweet(text=twit)
