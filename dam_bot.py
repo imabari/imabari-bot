@@ -50,73 +50,12 @@ df_date["year"].mask(dt_now < df_date["datetime"], df_date["year"] - 1, inplace=
 
 df["日時"] = pd.to_datetime(df_date[["year", "month", "day", "hour", "minute"]])
 
-# 貯水率
-
-fig_wsr = px.line(
-    df, x="日時", y="貯水率", range_y=[50, 80], width=800, height=800, title="玉川ダムの貯水率"
-)
-fig_wsr.add_hline(y=60, line_color="orange", line_dash="dash")
-# fig_wsr.add_hline(y=50, line_color="red", line_dash="dash")
-# fig_wsr.show()
-
-fig_wsr.write_image("dam.png")
-
-# 流入・放流
-
-fig_wio = px.line(
-    df,
-    x="日時",
-    y=["流入量", "放流量"],
-    range_y=[0, 10],
-    width=800,
-    height=800,
-    title="玉川ダムの流入量と放流量",
-)
-# fig_wio.show()
-
-# 表
-
-fig_wio.write_image("dio.png")
-
-fig_tbl = ff.create_table(df)
-# fig_tbl
-
-fig_tbl.write_image("table.png")
-
-# Twitter
-
-# 貯水率が欠損の行を削除
-df.dropna(subset=["貯水率"], inplace=True)
-
-df.set_index("日時", inplace=True)
-
-if len(df) > 0:
-
-    se = df.iloc[-1]
-    tw = {}
-    tw["rate"] = se["貯水率"]
-    tw["time"] = se.name.strftime("%H:%M")
-
-    twit = f'ただいまの玉川ダムの貯水率は{tw["rate"]}%です（{tw["time"]}）\n#今治 #玉川ダム #貯水率'
-
-    print(twit)
-
-
+bearer_token = os.environ["IMABARI_BT"]
 consumer_key = os.environ["IMABARI_CK"]
 consumer_secret = os.environ["IMABARI_CS"]
 access_token = os.environ["IMABARI_AT"]
 access_token_secret = os.environ["IMABARI_AS"]
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
+client = tweepy.Client(bearer_token, consumer_key, consumer_secret, access_token, access_token_secret)
 
-# 複数メディア投稿
-filenames = ["table.png", "dam.png", "dio.png"]
-media_ids = []
-for filename in filenames:
-    res = api.media_upload(filename)
-    media_ids.append(res.media_id)
-
-# tweet with multiple images
-api.update_status(status=twit, media_ids=media_ids)
+client.create_tweet(text=twit)
