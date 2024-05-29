@@ -28,9 +28,7 @@ pdfbox.PDFBox().pdf_to_images(p, imageType="png", dpi=200)
 JST = datetime.timezone(datetime.timedelta(hours=+9))
 dt_now = datetime.datetime.now(JST).replace(tzinfo=None)
 
-dt_nextm = dt_now
-
-twit = f"{dt_nextm.month}月中の公開交通取締り（今治署） #imabari\n{url}\n"
+twit = f"{dt_now.year}年{dt_now.month}月中の公開交通取締り（今治署） #imabari\n{url}\n"
 
 consumer_key = os.environ["IMABARI_CK"]
 consumer_secret = os.environ["IMABARI_CS"]
