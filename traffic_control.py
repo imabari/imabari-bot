@@ -78,6 +78,13 @@ if len(df1) > 0:
     auth.set_access_token(access_token, access_token_secret)
 
     api = tweepy.API(auth)
+    
+    client = tweepy.Client(
+        consumer_key=consumer_key,
+        consumer_secret=consumer_secret,
+        access_token=access_token,
+        access_token_secret=access_token_secret,
+    )
 
     media_id = api.media_upload("51.png").media_id
     api.update_status(status=twit, media_ids=[media_id])
