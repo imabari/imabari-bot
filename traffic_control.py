@@ -48,4 +48,4 @@ client = tweepy.Client(
 )
 
 media_id = api.media_upload("51.png").media_id
-api.update_status(status=twit, media_ids=[media_id])
+client.create_tweet(text=twit, media_ids=[media.media_id])
