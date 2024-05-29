@@ -1,5 +1,3 @@
-pandas
-pdfplumber
 python-pdfbox
 requests
 tweepy
