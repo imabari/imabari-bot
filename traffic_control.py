@@ -1,3 +1,4 @@
+import datetime
 import os
 import pathlib
 
@@ -18,14 +19,16 @@ def fetch_file(url, dir="."):
         fw.write(r.content)
     return p
 
-
 url = "https://www.police.pref.ehime.jp/kotsusidou/map/5.pdf"
 
 p = fetch_file(url)
 
 pdfbox.PDFBox().pdf_to_images(p, imageType="png", dpi=200)
 
-twit = f"{dt_now.month}月中の公開交通取締り（今治署） #imabari\n{url}\n"
+JST = datetime.timezone(datetime.timedelta(hours=+9))
+dt_now = datetime.datetime.now(JST).replace(tzinfo=None)
+
+twit = f"{dt_now.month + 1}月中の公開交通取締り（今治署） #imabari\n{url}\n"
 
 consumer_key = os.environ["IMABARI_CK"]
 consumer_secret = os.environ["IMABARI_CS"]
