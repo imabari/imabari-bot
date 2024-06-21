@@ -1,0 +1,6 @@
+pandas
+requests
+tweepy
+lxml
+plotly
+kaleido
