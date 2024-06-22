@@ -28,7 +28,7 @@ jobs:
         sudo apt install fonts-noto
     - name: Run script
       run: |
-        python baousai.py
+        python bousai.py
       env:
         IMABARI_CK: ${{ secrets.IMABARI_CK }}
         IMABARI_CS: ${{ secrets.IMABARI_CS }}
