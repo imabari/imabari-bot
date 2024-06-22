@@ -20,9 +20,9 @@ def fetch_now():
     d = fetch_json(url)
     s = d.get("crntRwTime")
 
-    dt_now = datetime.datetime.strptime(s, "%Y/%m/%d %H:%M")
+    dt_now = pd.to_datetime(s)
 
-    return dt_now
+    return dt_now.round(freq="10min")
 
 
 def fetch_dam(dt_now):
