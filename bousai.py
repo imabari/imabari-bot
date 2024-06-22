@@ -22,7 +22,7 @@ def fetch_now():
 
     dt_now = pd.to_datetime(s)
 
-    return dt_now.round(freq="10min")
+    return dt_now.replace(minute=0, second=0, microsecond=0)
 
 
 def fetch_dam(dt_now):
