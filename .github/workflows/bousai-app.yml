@@ -6,8 +6,6 @@ name: Bousai Info
 on:
   repository_dispatch:
     types: [on-demand-bousai]
-  schedule:
-    - cron:  '5 * * * *'
   workflow_dispatch:
 
 jobs:
