@@ -6,8 +6,8 @@ name: Tamagawa Dam
 on:
   repository_dispatch:
     types: [on-demand-test]
-  schedule:
-    - cron:  '5 9,21 * * *'
+#   schedule:
+#     - cron:  '5 9,21 * * *'
   workflow_dispatch:
 
 jobs:
