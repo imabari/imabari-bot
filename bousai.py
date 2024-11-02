@@ -77,7 +77,7 @@ def fetch_dam(dt_now):
     fig_vol.write_image("volume.png", width=800, height=600)
 
     # 流入量・放流量
-    fig_inout = px.line(df, x=df.index, y=["全流入量", "全放流量"], range_y=[0, 100], width=800, height=800)
+    fig_inout = px.line(df, x=df.index, y=["全流入量", "全放流量"], range_y=[0, 150], width=800, height=800)
     fig_inout.update_yaxes(title=None)
     fig_inout.show()
 
