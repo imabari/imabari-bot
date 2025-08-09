@@ -72,7 +72,7 @@ def fetch_dam(dt_now):
     fig_rate.write_image("rate.png", width=800, height=600)
 
     # 貯水量
-    fig_vol = px.line(df, y="貯水量", range_y=[5000, 7500], width=800, height=800)
+    fig_vol = px.line(df, y="貯水量", range_y=[4500, 7500], width=800, height=800)
     
     fig_vol.show()
 
