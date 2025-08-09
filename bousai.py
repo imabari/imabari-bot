@@ -45,7 +45,7 @@ def fetch_dam(dt_now):
     }
 
     df = pd.json_normalize(d, record_path="min10Values").rename(columns=col).reindex(columns=col.values())
-    df["日時"] = pd.to_datetime(df["日時"], errors="coerce")
+    df["日時"] = pd.to_datetime(df["日時"], unit="ns", errors="coerce")
     df.sort_values("日時", inplace=True)
 
     df.dropna(
@@ -107,7 +107,7 @@ def fetch_katayama(dt_now):
     }
 
     df = pd.json_normalize(d, record_path="min10Values").rename(columns=col).reindex(columns=col.values())
-    df["日時"] = pd.to_datetime(df["日時"], errors="coerce")
+    df["日時"] = pd.to_datetime(df["日時"], unit="ns", errors="coerce")
     df.sort_values("日時", inplace=True)
 
     df.dropna(subset="水位", inplace=True)
