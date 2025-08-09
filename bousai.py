@@ -84,7 +84,7 @@ def fetch_dam(dt_now):
     fig_inout = px.line(df, x=df.index, y=["全流入量", "全放流量"], range_y=[0, 180], width=800, height=800)
     fig_inout.update_yaxes(title=None)
 
-    fig_input.update_layout(xaxis=dict(type="date"))
+    fig_inout.update_layout(xaxis=dict(type="date"))
     fig_inout.show()
 
     fig_inout.write_image("in-out.png", width=800, height=600)
