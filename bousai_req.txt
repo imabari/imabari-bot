@@ -2,5 +2,5 @@ pandas
 requests
 tweepy
 lxml
-plotly
+plotly==5.24.1
 kaleido
