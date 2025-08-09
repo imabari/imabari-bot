@@ -63,7 +63,7 @@ def fetch_dam(dt_now):
     print(df.dtypes)
     
     # 貯水率
-    fig_rate = px.line(df, x="日時", y="貯水率利水容量", range_y=[40, 105], width=800, height=800)
+    fig_rate = px.line(df, x=df["日時"], y="貯水率利水容量", range_y=[40, 105], width=800, height=800)
     fig_rate.add_hline(y=65, line_color="orange", line_dash="dash")
     fig_rate.add_hline(y=50, line_color="red", line_dash="dash")
     fig_rate.update_yaxes(title="貯水率(%)")
@@ -75,7 +75,7 @@ def fetch_dam(dt_now):
     fig_rate.write_image("rate.png", width=800, height=600)
 
     # 貯水量
-    fig_vol = px.line(df, x="日時", y="貯水量", range_y=[3000, 7500], width=800, height=800)
+    fig_vol = px.line(df, x=df["日時"], y="貯水量", range_y=[3000, 7500], width=800, height=800)
 
     fig_vol.update_xaxes(type="date")
     
@@ -84,7 +84,7 @@ def fetch_dam(dt_now):
     fig_vol.write_image("volume.png", width=800, height=600)
 
     # 流入量・放流量
-    fig_inout = px.line(df, x="日時", y=["全流入量", "全放流量"], range_y=[0, 180], width=800, height=800)
+    fig_inout = px.line(df, x=df["日時"], y=["全流入量", "全放流量"], range_y=[0, 180], width=800, height=800)
     fig_inout.update_yaxes(title=None)
 
     fig_inout.update_xaxes(type="date")
@@ -120,7 +120,7 @@ def fetch_katayama(dt_now):
 
     df.dropna(subset="水位", inplace=True)
 
-    fig = px.line(df, x="日時", y="水位", width=800, height=600)
+    fig = px.line(df, x=df["日時"], y="水位", width=800, height=600)
 
     # 氾濫注意水位
     fig.add_hline(y=2.4, line_color="orange", line_dash="dash")
