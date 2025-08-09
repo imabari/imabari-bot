@@ -3,4 +3,4 @@ requests
 tweepy
 lxml
 plotly==5.24.1
-kaleido
+kaleido==0.2.1
