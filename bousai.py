@@ -66,12 +66,16 @@ def fetch_dam(dt_now):
     fig_rate.add_hline(y=65, line_color="orange", line_dash="dash")
     fig_rate.add_hline(y=50, line_color="red", line_dash="dash")
     fig_rate.update_yaxes(title="貯水率(%)")
+    
+    fig_rate.update_layout(xaxis=dict(type="date"))
     fig_rate.show()
 
     fig_rate.write_image("rate.png", width=800, height=600)
 
     # 貯水量
     fig_vol = px.line(df, x=df.index, y="貯水量", range_y=[5000, 7500], width=800, height=800)
+    
+    fig_vol.update_layout(xaxis=dict(type="date"))
     fig_vol.show()
 
     fig_vol.write_image("volume.png", width=800, height=600)
@@ -79,6 +83,8 @@ def fetch_dam(dt_now):
     # 流入量・放流量
     fig_inout = px.line(df, x=df.index, y=["全流入量", "全放流量"], range_y=[0, 180], width=800, height=800)
     fig_inout.update_yaxes(title=None)
+
+    fig_input.update_layout(xaxis=dict(type="date"))
     fig_inout.show()
 
     fig_inout.write_image("in-out.png", width=800, height=600)
@@ -121,6 +127,9 @@ def fetch_katayama(dt_now):
 
     # 氾濫危険水位
     fig.add_hline(y=2.85, line_color="purple", line_dash="dash")
+
+    fig.update_layout(xaxis=dict(type="date"))
+    
     fig.show()
 
     fig.write_image("river.png", width=800, height=600)
